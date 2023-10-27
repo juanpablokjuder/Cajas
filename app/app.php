@@ -1,6 +1,6 @@
 <?php
 
-$pathInicio="/caja/";
+$pathInicio="/Cajas/";
 
 require "functions/funciones.php";
 require "classes/_Classes.php";
