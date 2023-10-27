@@ -51,19 +51,19 @@
 <script type="text/javascript">
     function stock(){
         var stockPesos = $.ajax ({
-            url: '/cajas/modules/stockGeneral.php?moneda=1',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '/cajas/modules/stockGeneral.php?moneda=2',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '/cajas/modules/stockGeneral.php?moneda=3',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3',
             dataType: 'text',
             async: false,
         }).responseText;
@@ -73,7 +73,7 @@
     setInterval(stock, 2000);
     function tablaCaja(){
         var tabla= $.ajax ({
-            url: '/cajas/modules/tablaCajaGeneral.php?fecha=<?php echo $fecha ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/tablaCajaGeneral.php?fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;

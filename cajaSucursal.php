@@ -94,19 +94,19 @@
 <script type="text/javascript">
     function stock(){
         var stockPesos = $.ajax ({
-            url: '/caja/modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '/caja/modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '/caja/modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>',
             dataType: 'text',
             async: false,
         }).responseText;
@@ -116,7 +116,7 @@
     setInterval(stock, 10000);
     function tablaCaja(){
         var tabla= $.ajax ({
-            url: '/caja/modules/tablaCajaSucursal.php?fecha=<?php echo $fecha ?>&sucursal=<?php echo $sucursal ?>&pag=<?php echo $pag ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/tablaCajaSucursal.php?fecha=<?php echo $fecha ?>&sucursal=<?php echo $sucursal ?>&pag=<?php echo $pag ?>',
             dataType: 'text',
             async: false,
         }).responseText;

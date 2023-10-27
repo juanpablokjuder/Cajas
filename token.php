@@ -13,7 +13,7 @@
   <script type="text/javascript">
     function tiempoReal(){
         var token = $.ajax ({
-            url: '/caja/modules/token.php',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/token.php',
             dataType: 'text',
             async: false,
         }).responseText;
