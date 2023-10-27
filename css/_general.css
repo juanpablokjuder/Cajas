@@ -1,0 +1,79 @@
+body{
+  background-color: #cfcfcf;
+  /* width: 100vw; */
+  font-family: 'Karla', sans-serif;
+  font-family: 'League Gothic', sans-serif;
+  overflow-x: hidden;
+  width: 95vw;
+  margin-left: 5vw;
+}
+h1{
+  color: var(--colorPrincipal);
+}
+h2{
+  color: var(--colorPrincipal);
+}
+.contFlex2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 90%;
+  margin: 10px auto;
+}
+.contenedor{
+  background-color: #fff;
+  text-transform: uppercase;
+  padding: 20px;
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+}
+.contError{
+  top: 0;
+  left: 0;
+  background-color: red;
+  color: #fff;
+  padding: 5px 10px;
+  position: fixed;
+  z-index: 1000;
+  margin: 5px;
+}
+
+*::-webkit-scrollbar{
+  background-color: transparent;
+  width: 10px;
+}
+*::-webkit-scrollbar-track{
+  background-color: #fff;
+  width: 10px;
+}
+*::-webkit-scrollbar-thumb{
+  border-radius: 20px;
+  background-color: black;
+  height: 10px;
+}
+
+.btn{
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+@media (max-width: 1000px) {
+  .contenedor{
+    width: 60vw;
+    margin: 10px auto;
+  }
+  body{
+    width: 80vw;
+    margin-left: 20vw;
+  }
+  .contFlex2{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 90%;
+    margin: 10px auto;
+  }
+}

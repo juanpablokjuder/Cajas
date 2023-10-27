@@ -1,0 +1,260 @@
+.contCaja{
+    width: 95vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 95vw;
+    /* margin-left: 5vw; */
+}
+.contCaja>div{
+    width: 95vw;
+   
+}
+.topCaja{
+    height: 20vh;
+    width: 9vw;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    display: flex;
+    border-bottom: #222 1px solid;
+    box-shadow: 0px 0px 5px 1px #333;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+}
+.midCaja{
+    height: 50vh;
+    width: 90vw;
+    position: fixed;
+    top: 20%;
+    background-color: transparent;
+    overflow-y: scroll;
+    font-weight: 800;
+    /* direction: rtl;
+    margin-right: 5vw; */
+}
+.midBotCaja{
+    height: 70vh;
+    width: 90vw;
+    position: fixed;
+    top: 20%;
+    background-color: transparent;
+    overflow-y: scroll;
+    font-weight: 800; 
+}
+.botBotCaja{
+    height: 10vh;
+    width: 90vw;
+    position: fixed;
+    top: 90%;
+    background-color: transparent;
+    overflow-y: hidden;
+    font-weight: 800; 
+
+}
+.midCaja::-webkit-scrollbar-track{
+    left: 0;
+}
+.botCaja{
+    border-top: #333 1px solid;
+    height: 30vh;
+    position: fixed;
+    bottom: 0;
+    background-color: #333;
+    width: 95vw;
+}
+.contCajaMid{
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7.5vw;
+    
+}
+.tftable tr.titulo{position: sticky;top: 0;}
+.tftable {border-radius: 5px; text-transform: uppercase;font-weight: bolder;text-align: center;font-size:12px;color:#fff;width:100%;border-width: 1px;border-collapse: collapse;}
+.tftable th {font-size:12px;background-color: var(--colorPrincipal);border-width: 1px;padding: 6px 20px;border-style: solid;border-color: rgb(0, 0, 0);text-align:center;}
+.tftable tr {background-color:#000000; border-radius: 5px; margin: 10px;}
+.tftable td {font-size:12px;border-width: 1px;padding: 6px;border-style: solid;border-color: rgb(0, 0, 0);background-color: #fff;color: #111;}
+.tftable tr:hover td{background-color:#f1f1f1;}
+.tftable img{width: 15px;}
+
+.tftable td.cVerde{color: #2ECC71;}
+.tftable td.cRojo{color: red;}
+.tftable td.cGris{color: gray;}
+.tftable tr.eliminado td{background-color: rgb(255, 152, 141);}
+.tftable td.trash svg{
+    color:red;
+    stroke: red;
+}
+.tftable td.trash button{
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    cursor: pointer;
+}
+
+.cajaTablaTop{
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2.5vw;
+}
+
+.botCaja>div{
+    width: 95%;
+}
+.h2Operacion{
+    color: #fff;
+    text-align: center;
+    margin: 15px 0 5px;
+}
+.formContOperacion{
+    width: 80vw;
+    /* margin: 10px auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7.5vw;
+    
+}
+.inputCaja{
+    padding: 5px;
+    width: 95%;
+    font-size: 30px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+.inputCaja2{
+    padding: 5px;
+    width: 40%;
+    font-size: 30px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.fondoVentana{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #00000067;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    display: none;
+}
+.contVentana{
+    height: max-content;
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+.contVentana > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+.btnAceptar{
+    width: 100%;
+    color: #fff;
+    background-color: #000;
+    margin: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+.btnCancelar{
+    width: 100%;
+    color: #fff;
+    background-color: red;
+    margin: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+.contNumeroCaja{
+    margin: 10px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+.contNumeroCaja>*{
+    margin: 10px;
+    cursor: pointer;
+    color: gray;
+}
+#recordatorio{
+    color: #fff;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+}
+@media (max-width: 1000px) {
+    .contCaja>div{
+        width: 80vw;
+    }
+    .topCaja{
+        width: 80vw;
+        left: 20vw;
+        height: 50vh;
+        
+        margin-left: 0;
+    }
+    .cajaTablaTop{
+        width: 80vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .midCaja{
+        position: fixed;
+        width: 60vw;
+        left: 20vw;
+        height: 40vh;
+        top: 55%;
+    }
+    .midBotCaja{
+        position: fixed;
+        width: 80vw;
+        /* left: 20vw; */
+        height: 40vh;  
+        top: 55%;
+    }
+    .contCajaMid{ /* caja general y sucursal */
+        width: 80vw;
+        margin-left: 2.5vw;
+        display: flex;
+        justify-content: left;
+        /* align-items: flex-start; */
+    }
+
+    .botCaja{
+        display: none;
+    }
+    .contCajaMid .tftable {
+        /* margin-left: 20vw */
+        width: 80vw;
+    }
+    .cajaTablaTop .tftable tr{
+        max-width: 70vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .Caja.tftable{
+        font-size: 5px;
+
+    }
+    .Caja.tftable td, .Caja.tftable th{
+        padding: 4px;
+    }
+    .tablaCotCaja{
+        display: none;
+    }
+}

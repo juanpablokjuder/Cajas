@@ -1,0 +1,8 @@
+.formFlex{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.formFlex>*{
+  padding: 10px;
+}

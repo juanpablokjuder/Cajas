@@ -1,0 +1,4 @@
+calcular ganancia diaria, mensual, anual.
+
+Generar nuevo token cuando se actualiza la cot
+

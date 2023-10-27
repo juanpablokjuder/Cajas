@@ -1,0 +1,26 @@
+.sucursal{
+  width: 200px;
+  margin: 10px auto;
+}
+.contSucursal{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.botonesSuc{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.botonesSuc>button{
+  width: max-content;
+  height: max-content;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin: 0 auto;
+}
+svg.red{
+  stroke: red;
+}
+svg.green{
+  stroke: green;
+} 
