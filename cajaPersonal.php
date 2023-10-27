@@ -299,19 +299,19 @@
 <script type="text/javascript">
     function stock(){
         var stockPesos = $.ajax ({
-            url: '/caja/modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '/cajas/modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '/caja/modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '/cajas/modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '/caja/modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '/cajas/modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>',
             dataType: 'text',
             async: false,
         }).responseText;
@@ -321,7 +321,7 @@
     setInterval(stock, 3000);
     function getCotizacion(moneda,operacion){
         var moneda= $.ajax ({
-            url: "/caja/modules/cotizacion.php?moneda="+moneda+"&operacion="+operacion,
+            url: "/cajas/modules/cotizacion.php?moneda="+moneda+"&operacion="+operacion,
             dataType: 'text',
             async: false,
         }).responseText;
@@ -329,25 +329,25 @@
     }
     function cotActual(){
         var cDolar= $.ajax ({
-            url: "/caja/modules/cotizacion.php?moneda=2&operacion=1",
+            url: "/cajas/modules/cotizacion.php?moneda=2&operacion=1",
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("cDolar").innerHTML= cDolar;
         var vDolar= $.ajax ({
-            url: "/caja/modules/cotizacion.php?moneda=2&operacion=2",
+            url: "/cajas/modules/cotizacion.php?moneda=2&operacion=2",
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("vDolar").innerHTML= vDolar;
         var cEuro= $.ajax ({
-            url: "/caja/modules/cotizacion.php?moneda=3&operacion=1",
+            url: "/cajas/modules/cotizacion.php?moneda=3&operacion=1",
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("cEuro").innerHTML= cEuro;
         var vEuro= $.ajax ({
-            url: "/caja/modules/cotizacion.php?moneda=3&operacion=2",
+            url: "/cajas/modules/cotizacion.php?moneda=3&operacion=2",
             dataType: 'text',
             async: false,
         }).responseText;
@@ -358,7 +358,7 @@
     setInterval(cotActual, 3000);
     function tablaCaja(){
         var tabla= $.ajax ({
-            url: '/caja/modules/tablaCaja.php?user=<?php echo $_SESSION['idUsuario'] ?>&fecha=<?php echo $fecha ?>',
+            url: '/cajas/modules/tablaCaja.php?user=<?php echo $_SESSION['idUsuario'] ?>&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
@@ -428,7 +428,7 @@
     const fondoVentana2 = document.getElementById("fondoVentana2");
     function getToken(){
         var token= $.ajax ({
-            url: '/caja/modules/token2.php',
+            url: '/cajas/modules/token2.php',
             dataType: 'text',
             async: false,
         }).responseText;
