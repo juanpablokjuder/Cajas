@@ -92,7 +92,13 @@
             </table>
             <table class="tftable saldos" border="1px">
                 <tr><th>Saldos</th><th>ARS <img src="img/arg.png" alt=""></th><th>USD <img src="img/usd.png" alt=""></th><th>EUR <img src="img/eur.png" alt=""></th></tr>
+                <tr><th>Saldos Iniciales</th><td id="inStockPesos"></td><td id="inStockDolares"></td><td id="inStockEuros"></td></tr>
+                
+                <?php if( $fecha != date('Y-m-d')){ ?>
+                <tr><th>Saldos Finales</th><td id="finStockPesos"></td><td id="finStockDolares"></td><td id="finStockEuros"></td></tr>
+                <?php }?>
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
+
             </table>
             <table class="tftable tablaCotCaja" border="1px" >
                 
@@ -143,16 +149,16 @@
                         </select>
                     </td>
                     <td>
-                        <select name="Monedas" id="selectMoneda" onchange="changeSelect2()" class="inputCaja" disabled>
+                        <select name="Monedas" id="selectMoneda" onchange="changeSelect2()" class="inputCaja" disabled style="width: 150px;">
                             
                         </select>
                     </td>
                     <td>
-                        <input type="number" name="monto" id="inputCantidad" class="inputCaja" oninput="recordatorioOp()">
+                        <input type="number" name="monto" id="inputCantidad" class="inputCaja" oninput="recordatorioOp()" style="width: 150px;">
                     </td>
                     <td id="tdCotizacion">
-                        <input type="text" name="cotizacion" id="inputCotizacion" class="inputCaja2" readonly>
-                        <button type="button" class="inputCaja2 btn" onClick="mostrar2()">
+                        <input type="text" name="cotizacion" id="inputCotizacion" class="inputCaja2" readonly style="width: 100px;">
+                        <button type="button" class="inputCaja2 btn" onClick="mostrar2()" style="width: 100px;">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
@@ -161,7 +167,9 @@
                             </svg>
                         </button>
                     </td>
+                    <td id="tdResultado">
 
+                    </td>
                     <td id="tdUsuario" style="display:none;">
                         <select name="Usuario" id="selectUsuario" class="inputCaja" >
                             <?php if($_SESSION['rol']==0){
@@ -190,6 +198,10 @@
                     <td>
                         <input type="submit" value="Guardar" class="inputCaja btn">
                     </td>
+                    <td>
+                        <button type="button" onclick="print()" class="inputCaja btn">Imprimir</button>
+                    </td>
+
                 </tr>
                 
             </table>
@@ -298,20 +310,62 @@
 <!-- FUNCIONES TIEMPO REAL -->
 <script type="text/javascript">
     function stock(){
+        // STOCK INICIAL
+        var instockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockPesos").innerHTML = instockPesos;
+        var instockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockDolares").innerHTML = instockDolares;
+        var instockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockEuros").innerHTML = instockEuros;
+        // STOCK FINAL
+        var finstockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Final&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockPesos").innerHTML = finstockPesos;
+        var finstockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Final&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        if(!!document.getElementById("finStockDolares")){
+            document.getElementById("finStockDolares").innerHTML = finstockDolares;
+
+        }
+        var finstockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Final&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockEuros").innerHTML = finstockEuros;
+        // STOCK ACTUAL
         var stockPesos = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;

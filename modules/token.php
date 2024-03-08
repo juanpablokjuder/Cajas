@@ -13,7 +13,7 @@ $time = mysqli_fetch_assoc($co);
 ?>
 <div class="contToken">
   <div>
-    <h1><?php echo sprintf('%02d', 30-$time['hora']) ?></h1>
+    <h1><?php echo sprintf('%02d', 59-$time['hora']) ?></h1>
     <h2><?php echo $c['token']?></h2>
   </div>
 </div>

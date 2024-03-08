@@ -16,7 +16,7 @@ $totalEuros = 0;
     <?php foreach($operaciones as $op){?>
     <tr class="<?php if($op->estado == 0){echo "eliminado";} ?>">
       <td><?php echo $op->idOperacion ?></td>
-      <td><?php echo $op->fecha ?></td>
+      <td><?php echo date('d/m/Y', strtotime($op->fecha)) ?></td>
       <td><?php echo $op->hora ?></td>
       <td><?php echo $op->detalle ?></td>
       <td><?php echo $op->cotizacion ?></td>

@@ -145,7 +145,7 @@ function token(){
 }
 function generarToken(){
 if(conectarDB("SELECT * FROM `token` 
-   WHERE TIMESTAMPDIFF(SECOND, `fecha_hora`, NOW()) >= 30")->num_rows>0){
+   WHERE TIMESTAMPDIFF(SECOND, `fecha_hora`, NOW()) >= 59")->num_rows>0){
     $token = token();
     conectarDB("UPDATE `token` SET `token`='$token', `fecha_hora` = NOW() ");
 }
@@ -244,4 +244,43 @@ function llenarArrayConCeros($numero) {
     }
 
     return $arrayNumeros;
+}
+function obtener_ip_local() {
+    // Si la dirección IP del cliente está detrás de un proxy, 
+    // la dirección IP real del cliente podría estar en la cabecera 'HTTP_X_FORWARDED_FOR'
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        // Intentamos obtener la dirección IPv4 del cliente directamente desde 'REMOTE_ADDR'
+        $ip = $_SERVER['REMOTE_ADDR'];
+        // Verificamos si la dirección IP es una dirección IPv6
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            // Si es IPv6, forzamos el uso de IPv4
+            $ip = $_SERVER['SERVER_ADDR'];
+        }
+    }
+    return $ip;
+}
+function ImprimirTicket($fecha,$hora,$operacion,$moneda,$monto,$cot,$total){
+    $ip_local = obtener_ip_local();
+    if($ip_local == "::1"){$ip_local = "192.168.0.64/Cajas";}
+    $url = "192.168.0.64/Cajas/ticket.php?fecha=".$fecha."&hora=".$hora."&operacion=".$operacion."&moneda=".$moneda."&monto=".$monto."&cot=".$cot."&total=".$total;
+    ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    function ImprimirTicket(url) {
+        $.ajax({
+            url: url,
+            success: function(response) {
+                console.log(response); // Esto es opcional, puedes quitarlo si no lo necesitas
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al imprimir el ticket:", status, error);
+            }
+        });
+    }
+    ImprimirTicket("<?php echo $url ?>")
+    
+    </script>
+    <?php
 }

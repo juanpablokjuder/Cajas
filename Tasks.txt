@@ -2,3 +2,10 @@ calcular ganancia diaria, mensual, anual.
 
 Generar nuevo token cuando se actualiza la cot
 
+cambiar columnas
+
+imprimir tickets
+
+cambiar de lugar la previsualizacion de venta/compra
+
+simulador de compra y venta

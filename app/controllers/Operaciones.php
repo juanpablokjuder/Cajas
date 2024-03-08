@@ -157,6 +157,7 @@ class Operaciones{
 
     }
     ////////////////////////////////////////////////////////////////////////////
+    $fecha_actual = new DateTime();
     $consulta = conectarDB("INSERT INTO `operaciones`
     (`idUsuario`, `fecha`, `hora`, `tipoOperacion`,
     `idMoneda`,`monto`, `cotizacion`, `estado`) VALUES
@@ -171,6 +172,19 @@ class Operaciones{
       
       conectarDB("INSERT INTO `detalles` (`idOperacion`, `detalle`)
        VALUES ('$ultimaID', '$op->detalle')");
+    }
+    if($op->tipoOperacion == 1 || $op->tipoOperacion == 2){
+    ////
+    //   IMPRIMIR TICKET TICKET
+        $fecha = $fecha_actual->format('d/m/Y');
+        $hora = $fecha_actual->format('H:i:s');
+        $operacion = $op->tipoOperacion == 1 ? "compra" :  "venta";
+        $moneda = $op->idMoneda == 2 ? "USD" : "EUR";
+        $monto = $op->monto;
+        $cot = $op->cotizacion;
+        $total = $op->cotizacion * $op->monto;
+        ImprimirTicket($fecha,$hora,$operacion,$moneda,$monto,$cot,$total);        
+    ////
     }
     return true;
   }
@@ -591,10 +605,29 @@ class Operaciones{
     }
     return number_format($spread,2);
   }
-  public function gananciaDelDia($sucursal=0, $fecha){
+  public function gananciaBrutaDelDia($sucursal=0, $fecha, $moneda){
+    // Inicializar Ganancia en 0
     $ganancia = 0;
-
+    if($this->compraDelDia($sucursal, $fecha, $moneda) == $this->ventaDelDia($sucursal, $fecha, $moneda)){
+      //SE COMPRA LO MISMO QUE SE VENDE
+      $ganancia = $this->ventaDelDia($sucursal, $fecha, $moneda) * $this->spreadDelDia($sucursal, $fecha, $moneda);
+    }else{
+      if($this->compraDelDia($sucursal, $fecha, $moneda) > $this->ventaDelDia($sucursal, $fecha, $moneda)){
+        //SE COMPRA MAS DE LO QUE SE VENDE
+  
+      }
+      if($this->compraDelDia($sucursal, $fecha, $moneda) < $this->ventaDelDia($sucursal, $fecha, $moneda)){
+        //SE COMPRA MENOS DE LO QUE SE VENDE
+      }
+    }
     return $ganancia;
+  }
+  public function diferenciaDeStockDelDia($sucursal, $fecha, $moneda){
+    
+    return 0;
+  }
+  public function gananciaNetaDelDia($sucursal=0, $fecha, $moneda){
+    return $this->gananciaBrutaDelDia($sucursal, $fecha, $moneda) - $this->diferenciaDeStockDelDia($sucursal, $fecha, $moneda);
   }
   public function compraDelMes($sucursal=0, $fecha, $moneda){
     $mes = $fecha[5].$fecha[6];
@@ -755,8 +788,12 @@ class Operaciones{
     }
     return number_format($spread,2);
   }
-  public function gananciaDelMes(){}
-
+  public function gananciaBrutaDelMes($sucursal=0, $fecha, $moneda){
+    // Inicializar Ganancia en 0
+    $ganancia = 0;
+    $ganancia = $this->ventaDelMes($sucursal, $fecha, $moneda) * $this->spreadDelMes($sucursal, $fecha, $moneda);   
+    return $ganancia;
+  }
   public function compraDelAnio($sucursal=0, $fecha, $moneda){
     $anio = $fecha[0].$fecha[1].$fecha[2].$fecha[3];
     $comprado = 0;
@@ -905,8 +942,12 @@ class Operaciones{
     }
     return number_format($spread,2);
   }
-  public function gananciaDelAnio(){}
-
+  public function gananciaBrutaDelAnio($sucursal=0, $fecha, $moneda){
+    // Inicializar Ganancia en 0
+    $ganancia = 0;
+    $ganancia = $this->ventaDelAnio($sucursal, $fecha, $moneda) * $this->spreadDelAnio($sucursal, $fecha, $moneda);   
+    return $ganancia;
+  }
   public function diaDeLaSemanaQueMasSeCompra($sucursal = 0 , $moneda = 2){
     $dias = array(
       'Lunes' => 0,

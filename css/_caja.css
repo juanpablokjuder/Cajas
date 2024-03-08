@@ -258,3 +258,77 @@
         display: none;
     }
 }
+@media print{
+    body{
+        background-color: #fff !important;
+        width: 100vw !important;
+        margin-left: 0px !important;
+    }
+    button{ display: none !important;}
+    .menu{display: none !important;}
+    .contCaja{
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+    .contCaja>div{
+        width: 100vw !important;
+    }
+    .topCaja{
+        position: static;
+        width: 100vw !important;
+        left: 0vw !important;
+        height: auto !important;
+        margin-left: 0;
+    }
+    .tablaCotCaja{
+        display: none !important;
+    }
+    .cajaTablaTop{
+        width: 100vw !important;
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .cajaTablaTop>table *{
+        /* width: 90%; */
+    }
+    .midCaja{
+        position: static;
+        width: 100vw !important;
+        left: 0vw !important;
+        height: auto !important;
+        top: 20% !important;
+    }
+    .midBotCaja{
+        position: static;
+        margin-top: 10px;
+        width: 100vw !important;
+        /* left: 20vw; */
+        height: auto !important;  
+        top: auto !important;
+    }
+    .contCajaMid{ /* caja general y sucursal */
+        width: 80vw;
+        margin-left: 2.5vw;
+        display: flex;
+        justify-content: left;
+        /* align-items: flex-start; */
+    }
+    td,th{
+        padding: 7.5px !important;
+    }
+    .botCaja{
+        display: none;
+    }
+    .cajaTablaTop .tftable tr{
+        max-width: 100vw;
+        display: flex;
+        
+    }
+    .contCajaMid .tftable {
+        /* margin-left: 20vw */
+        width: 100vw !important;
+    }
+}

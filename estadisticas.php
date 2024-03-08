@@ -69,11 +69,30 @@ ganancia en el día,
   </form>
   <?php $operaciones = new Operaciones; ?>
   <table class="tftable" border="1px" style="overflow-x: hidden;">
-    <tr><th>Moneda</th><th>Compra del dia</th><th>Venta del Dia</th><th>Spread Promedio Del Dia</th><th>Ganancia Del Dia</th></tr>
-    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->ventaDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->spreadDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->gananciaDelDia($sucursal,$dia,2); ?></td></tr>
-    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->ventaDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->spreadDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->gananciaDelDia($sucursal,$dia,3); ?></td></tr>
+    <tr><th>Moneda</th><th>Compra del dia</th><th>Venta del Dia</th><th>Spread Promedio Del Dia</th><th>Ganancia Bruta Del Dia</th><th>Ganancia / Perdida Stock de Pesos Del Dia</th><th>Ganancia Bruta Del Dia</th></tr>
+    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->ventaDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->spreadDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->gananciaBrutaDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->diferenciaDeStockDelDia($sucursal,$dia,2); ?></td><td><?php echo $operaciones->gananciaNetaDelDia($sucursal,$dia,2); ?></td></tr>
+    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->ventaDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->spreadDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->gananciaBrutaDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->diferenciaDeStockDelDia($sucursal,$dia,3); ?></td><td><?php echo $operaciones->gananciaNetaDelDia($sucursal,$dia,3); ?></td></tr>
   </table>
 </div>
+<?php
+
+    $cons = conectarDB("SELECT
+    fecha,
+    COUNT(*) AS total_operaciones,
+    SUM(monto) AS total_monto,
+    SUM(cotizacion * monto) / SUM(monto) AS cotizacion_promedio_ponderado
+    FROM
+        operaciones
+    GROUP BY
+        fecha
+    ORDER BY
+    fecha");
+    foreach($cons as $c){
+      ver($c);
+    }
+    // ver(mysqli_fetch_assoc($cons));
+
+?>
  <!-- 
 cuanto se compro en el mes,
 cuanto se vendio en el mes,
@@ -89,9 +108,9 @@ ganancia en el mes,
     <input type="hidden" name="anio" value="<?php echo $anio ?>">
   </form>
   <table class="tftable" border="1px" style="overflow-x: hidden;">
-    <tr><th>Moneda</th><th>Compra del Mes</th><th>Venta del Mes</th><th>Spread Promedio Del Mes</th><th>Ganancia Del Mes</th></tr>
-    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->ventaDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->spreadDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->gananciaDelMes($sucursal,$mes,2); ?></td></tr>
-    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->ventaDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->spreadDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->gananciaDelMes($sucursal,$mes,3); ?></td></tr>
+    <tr><th>Moneda</th><th>Compra del Mes</th><th>Venta del Mes</th><th>Spread Promedio Del Mes</th><th>Ganancia Bruta Del Mes</th></tr>
+    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->ventaDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->spreadDelMes($sucursal,$mes,2); ?></td><td><?php echo $operaciones->gananciaBrutaDelMes($sucursal,$mes,2); ?></td></tr>
+    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->ventaDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->spreadDelMes($sucursal,$mes,3); ?></td><td><?php echo $operaciones->gananciaBrutaDelMes($sucursal,$mes,3); ?></td></tr>
   </table>
 </div>
 <div class="contenedor">
@@ -125,8 +144,8 @@ ganancia en el año,
 
   <table class="tftable" border="1px" style="overflow-x: hidden;">
     <tr><th>Moneda</th><th>Compra del Año</th><th>Venta del Año</th><th>Spread Promedio Del Año</th><th>Ganancia Del Año</th></tr>
-    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->ventaDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->spreadDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->gananciaDelAnio($sucursal,$anio,2); ?></td></tr>
-    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->ventaDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->spreadDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->gananciaDelAnio($sucursal,$anio,3); ?></td></tr>
+    <tr><th>USD <img src="img/usd.png" alt=""></th><td><?php echo $operaciones->compraDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->ventaDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->spreadDelAnio($sucursal,$anio,2); ?></td><td><?php echo $operaciones->gananciaBrutaDelAnio($sucursal,$anio,2); ?></td></tr>
+    <tr><th>EUR <img src="img/eur.png" alt=""></th><td><?php echo $operaciones->compraDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->ventaDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->spreadDelAnio($sucursal,$anio,3); ?></td><td><?php echo $operaciones->gananciaBrutaDelAnio($sucursal,$anio,3); ?></td></tr>
   </table>
 </div>
 <div class="contenedor">
