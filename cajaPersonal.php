@@ -1,7 +1,7 @@
 <?php 
     require "app/app.php";
     if(!isset($_GET['fecha'])){
-        $fecha = date("Y/m/d");
+        $fecha = date("Y-m-d");
     }else{
         $fecha = $_GET['fecha'];
     }
@@ -97,8 +97,9 @@
                 <?php if( $fecha != date('Y-m-d')){ ?>
                 <tr><th>Saldos Finales</th><td id="finStockPesos"></td><td id="finStockDolares"></td><td id="finStockEuros"></td></tr>
                 <?php }?>
+                <?php if( $fecha == date('Y-m-d')){ ?>
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
-
+                <?php }?>
             </table>
             <table class="tftable tablaCotCaja" border="1px" >
                 
@@ -330,6 +331,7 @@
         }).responseText;
         document.getElementById("inStockEuros").innerHTML = instockEuros;
         // STOCK FINAL
+        if(document.querySelector('#finStockPesos') !== null){
         var finstockPesos = $.ajax ({
             url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Final&fecha=<?php echo $fecha?>',
             dataType: 'text',
@@ -351,7 +353,9 @@
             async: false,
         }).responseText;
         document.getElementById("finStockEuros").innerHTML = finstockEuros;
+        }
         // STOCK ACTUAL
+        if(document.querySelector('#stockPesos') !== null){
         var stockPesos = $.ajax ({
             url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
@@ -370,6 +374,7 @@
             async: false,
         }).responseText;
         document.getElementById("stockEuros").innerHTML = stockEuros;
+        }
     }
     stock();
     setInterval(stock, 3000);

@@ -2,7 +2,7 @@
     require "app/app.php";
     validarGerenteGeneral();
     if(!isset($_GET['fecha'])){
-        $fecha = date("Y/m/d");
+        $fecha = date("Y-m-d");
     }else{
         $fecha = $_GET['fecha'];
     }
@@ -36,7 +36,14 @@
             </table>
             <table class="tftable" border="1px">
                 <tr><th>Saldos</th><th>ARS <img src="img/arg.png" alt=""></th><th>USD <img src="img/usd.png" alt=""></th><th>EUR <img src="img/eur.png" alt=""></th></tr>
+                <tr><th>Saldos Iniciales</th><td id="inStockPesos"></td><td id="inStockDolares"></td><td id="inStockEuros"></td></tr>
+                
+                <?php if( $fecha != date('Y-m-d')){ ?>
+                <tr><th>Saldos Finales</th><td id="finStockPesos"></td><td id="finStockDolares"></td><td id="finStockEuros"></td></tr>
+                <?php }?>
+                <?php if( $fecha == date('Y-m-d')){ ?>
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
+                <?php }?>
             </table>
         </div>
     </div>

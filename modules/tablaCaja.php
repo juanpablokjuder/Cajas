@@ -12,15 +12,21 @@ $totalDolares = 0;
 $totalEuros = 0;
 ?>
 <table class="tftable Caja" border="1px" style="overflow-x: hidden;">
-    <tr class="titulo"><th>ID</th><th>Fecha</th><th>Hora</th><th>DETALLE</th><th>COT</th><th>ARS <img src="img/arg.png" alt=""></th><th>USD <img src="img/usd.png" alt=""></th><th>EUR <img src="img/eur.png" alt=""></th><th></th></tr>
+    <tr class="titulo">
+      <th>DETALLE</th>
+      <th>USD <img src="img/usd.png" alt=""></th>
+      <th>EUR <img src="img/eur.png" alt=""></th>
+      <th>COT</th>
+      <th>ARS <img src="img/arg.png" alt=""></th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>ID</th>    
+      <th></th>
+    </tr>
     <?php foreach($operaciones as $op){?>
     <tr class="<?php if($op->estado == 0){echo "eliminado";} ?>">
-      <td><?php echo $op->idOperacion ?></td>
-      <td><?php echo date('d/m/Y', strtotime($op->fecha)) ?></td>
-      <td><?php echo $op->hora ?></td>
-      <td><?php echo $op->detalle ?></td>
-      <td><?php echo $op->cotizacion ?></td>
-      <?php
+    
+    <?php
         $pesos = 0;
         $dolares = 0;
         $euros = 0;
@@ -95,9 +101,18 @@ $totalEuros = 0;
         }
 
       ?>
-      <td class="<?php echo $cPesos ?>"><?php echo "$ ".number_format($pesos, 2, ',', '.'); ?></td>
+      <td><?php echo $op->detalle ?></td>
       <td class="<?php echo $cDolares ?>"><?php echo 'U$D '.number_format($dolares, 2, ',', '.'); ?></td>
       <td class="<?php echo $cEuros ?>"><?php echo "€ ".number_format($euros, 2, ',', '.'); ?></td>
+      <td><?php echo $op->cotizacion ?></td>
+      <td class="<?php echo $cPesos ?>"><?php echo "$ ".number_format($pesos, 2, ',', '.'); ?></td>
+      <td><?php echo date('d/m/Y', strtotime($op->fecha)) ?></td>
+      <td><?php echo $op->hora ?></td>
+      <td><?php echo $op->idOperacion ?></td>
+
+
+
+
       <td class="trash">
         <?php if($op->estado == 1){ ?>
         <button onClick="eliminar('<?php echo $op->idOperacion; ?>')">
@@ -115,7 +130,18 @@ $totalEuros = 0;
     </tr>
     <?php }?>
     
-    <tr><th></th><th></th><th></th><th></th><th>TOTAL</th><th><?php echo "$ ".number_format($totalPesos, 2, ',', '.'); ?></th><th><?php echo 'U$D '.number_format($totalDolares, 2, ',', '.'); ?></th><th><?php echo "€ ".number_format($totalEuros, 2, ',', '.'); ?></th><th></th></tr>
+    <tr>
+      <th>TOTAL</th>
+      <th><?php echo 'U$D '.number_format($totalDolares, 2, ',', '.'); ?></th>
+      <th><?php echo "€ ".number_format($totalEuros, 2, ',', '.'); ?></th>
+      <th></th>
+      <th><?php echo "$ ".number_format($totalPesos, 2, ',', '.'); ?></th>
+      <th></th>
+      <th></th>
+      <th></th>
+
+      <th></th>
+    </tr>
 
 
 </table>

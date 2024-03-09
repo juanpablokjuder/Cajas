@@ -2,7 +2,7 @@
     require "app/app.php";
     validarGerenteOEncargado();
     if(!isset($_GET['fecha'])){
-        $fecha = date("Y/m/d");
+        $fecha = date("Y-m-d");
     }else{
         $fecha = $_GET['fecha'];
     }
@@ -78,7 +78,13 @@
             </table>
             <table class="tftable" border="1px">
                 <tr><th>Saldos</th><th>ARS <img src="img/arg.png" alt=""></th><th>USD <img src="img/usd.png" alt=""></th><th>EUR <img src="img/eur.png" alt=""></th></tr>
+                <tr><th>Saldos Iniciales</th><td id="inStockPesos"></td><td id="inStockDolares"></td><td id="inStockEuros"></td></tr>
+                <?php if( $fecha != date('Y-m-d')){ ?>
+                <tr><th>Saldos Finales</th><td id="finStockPesos"></td><td id="finStockDolares"></td><td id="finStockEuros"></td></tr>
+                <?php }?>
+                <?php if( $fecha == date('Y-m-d')){ ?>
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
+                <?php }?>
             </table>
         </div>
     </div>
@@ -93,24 +99,70 @@
 <!-- FUNCIONES TIEMPO REAL -->
 <script type="text/javascript">
     function stock(){
+        // STOCK INICIAL
+        var instockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockPesos").innerHTML = instockPesos;
+        var instockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockDolares").innerHTML = instockDolares;
+        var instockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockEuros").innerHTML = instockEuros;
+        // STOCK FINAL
+        if(document.querySelector('#finStockPesos') !== null){
+        var finstockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>&tipo=Final&fecha=<?php echo $fecha ?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockPesos").innerHTML = finstockPesos;
+        var finstockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>&tipo=Final&fecha=<?php echo $fecha ?>s',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        if(!!document.getElementById("finStockDolares")){
+            document.getElementById("finStockDolares").innerHTML = finstockDolares;
+
+        }
+        var finstockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>&tipo=Final&fecha=<?php echo $fecha ?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockEuros").innerHTML = finstockEuros;
+        }
+        // STOCK ACTUAL
+        if(document.querySelector('#stockPesos') !== null){   
         var stockPesos = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $sucursal ?>&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $sucursal ?>&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockEuros").innerHTML = stockEuros;
+        }
     }
     stock();
     setInterval(stock, 10000);
