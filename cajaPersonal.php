@@ -6,6 +6,7 @@
         $fecha = $_GET['fecha'];
     }
     
+    
     if($_SERVER['REQUEST_METHOD']=="POST"){
         if(isset($_POST["eliminarOperacion"])){
             $codigo = $_POST['codigo'];
@@ -44,6 +45,20 @@
             $operacion = new Operaciones;
             
             if($operacion->insertOperacion($op)){
+                if($op->tipoOperacion == 1 || $op->tipoOperacion == 2){
+                    //   IMPRIMIR TICKET TICKET
+                    $fecha_actual = new DateTime();
+
+                    $fechaa = $fecha_actual->format('d/m/Y');
+                    $hora = $fecha_actual->format('H:i:s');
+                    $operacion = $op->tipoOperacion == 1 ? "compra" :  "venta";
+                    $moneda = $op->idMoneda == 2 ? "USD" : "EUR";
+                    $monto = $op->monto;
+                    $cot = $op->cotizacion;
+                    $total = $op->cotizacion * $op->monto;
+                    $_SESSION['urlImprimir'] = "ticket.php?fecha=".$fechaa."&hora=".$hora."&operacion=".$operacion."&moneda=".$moneda."&monto=".$monto."&cot=".$cot."&total=".$total;
+                    
+                }
                 if($op->tipoOperacion == 4){
                     $op2 = new Operacion;
                     $op2->idUsuario = $_POST['Usuario'];
@@ -74,7 +89,7 @@
 
     $usuario = new Usuarios;
     $usuario = $usuario->returnUsuario($_SESSION['idUsuario']);
-     menu();
+    menu();
      
 
     
@@ -113,7 +128,8 @@
 
     <div class="midCaja">
     <?php 
-            // ver($op);
+            //MOSTRAR COSAS
+
         ?>
         <div class="contCajaMid" id="tablaCaja">
        
@@ -136,7 +152,7 @@
                     <th id="thDetalle" style="display:none;">Detalle</th>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="width: 200px">
                         <select name="TipoOperacion" id="selectOperacion" onchange="changeSelect()" class="inputCaja">
                             <option value=""></option>
                             <option value="1">Comprar</option>
@@ -169,7 +185,7 @@
                         </button>
                     </td>
                     <td id="tdResultado">
-
+                        <p><span id="recordatorio"></span></p>
                     </td>
                     <td id="tdUsuario" style="display:none;">
                         <select name="Usuario" id="selectUsuario" class="inputCaja" >
@@ -208,12 +224,12 @@
             </table>
         </form>
         <div>
-            <span id="recordatorio"></span>
+            <!-- <span id="recordatorio"></span> -->
         </div>
     </div>
 </section>
 <!-- FUNCIONES NUEVA OPERACION -->
-<script type="text/javascript">
+<script type="text/javascript"> 
     function formatearNumeroConPuntos(numero) {
         return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -248,6 +264,7 @@
         const tdCotizacion = document.getElementById("tdCotizacion");
         const tdDetalle = document.getElementById("tdDetalle");
         const tdUsuario = document.getElementById("tdUsuario");
+        const tdResultado = document.getElementById("tdResultado");
 
         var selectedOption = select.options[select.selectedIndex];
         var selectedValue = selectedOption.value;
@@ -260,6 +277,7 @@
             agregarSelect("Dolares",2);
             agregarSelect("Euros",3);
            thCotizacion.style.display = "";
+           tdResultado.style.display = ""
            thUsuario.style.display = "none";
            thDetalle.style.display = "none";
            tdCotizacion.style.display = "";
@@ -287,6 +305,7 @@
                 tdUsuario.style.display = "none";
                 tdDetalle.style.display = "";
             }
+            tdResultado.style.display = "none";
         }
         const span = document.getElementById("recordatorio");
         
@@ -529,18 +548,22 @@ function recordatorioOp(){
     texto = ""; 
     if(operacion == 1){
         if(moneda == 2){
-            texto = "Cobrar "+formatearNumeroConPuntos(monto)+" Dolares, Pagar "+formatearNumeroConPuntos(monto*cot)+ " Pesos";
+            texto = "Pagar "+formatearNumeroConPuntos(monto*cot)+ " Pesos";
+            // texto = "Cobrar "+formatearNumeroConPuntos(monto)+" Dolares, Pagar "+formatearNumeroConPuntos(monto*cot)+ " Pesos";
         }
         if(moneda == 3){
-            texto = "Cobrar "+formatearNumeroConPuntos(monto)+" Euros, Pagar "+formatearNumeroConPuntos(monto*cot)+" Pesos";
+            texto = "Pagar "+formatearNumeroConPuntos(monto*cot)+" Pesos";
+            // texto = "Cobrar "+formatearNumeroConPuntos(monto)+" Euros, Pagar "+formatearNumeroConPuntos(monto*cot)+" Pesos";
         }
     }
     if(operacion == 2){
         if(moneda == 2){
-            texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos, Pagar "+formatearNumeroConPuntos(monto)+ " Dolares";
+            texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos";
+            // texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos, Pagar "+formatearNumeroConPuntos(monto)+ " Dolares";
         }
         if(moneda == 3){
-            texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos, Pagar "+formatearNumeroConPuntos(monto)+" Euros";
+            texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos";
+            // texto = "Cobrar "+formatearNumeroConPuntos(monto*cot)+" Pesos, Pagar "+formatearNumeroConPuntos(monto)+" Euros";
         }
     }
     span.textContent = texto;
@@ -554,3 +577,23 @@ function recordatorioOp(){
     // }
 
 
+function abrir_ventana_emergente($url) {
+    // Generar código JavaScript para abrir una nueva ventana emergente
+    echo '<script type="text/javascript">';
+    echo 'var ventana=window.open("'.$url.'", "_blank", "width=100,height=100,top=100,left=100")';
+    echo '</script>';
+    echo '<script type="text/javascript">';
+    echo 'setTimeout(function() { ventana.close(); }, 1000);';
+    echo '</script>';
+}
+
+// Llamar a la función para abrir la ventana emergente
+
+if($_SESSION['urlImprimir'] != ""){
+    abrir_ventana_emergente($_SESSION['urlImprimir'] );
+}
+
+if($_SERVER['REQUEST_METHOD'] == "GET"){
+    $_SESSION['urlImprimir'] = "";
+}
+?>

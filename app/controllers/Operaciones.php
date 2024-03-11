@@ -157,7 +157,6 @@ class Operaciones{
 
     }
     ////////////////////////////////////////////////////////////////////////////
-    $fecha_actual = new DateTime();
     $consulta = conectarDB("INSERT INTO `operaciones`
     (`idUsuario`, `fecha`, `hora`, `tipoOperacion`,
     `idMoneda`,`monto`, `cotizacion`, `estado`) VALUES
@@ -175,15 +174,7 @@ class Operaciones{
     }
     if($op->tipoOperacion == 1 || $op->tipoOperacion == 2){
     ////
-    //   IMPRIMIR TICKET TICKET
-        $fecha = $fecha_actual->format('d/m/Y');
-        $hora = $fecha_actual->format('H:i:s');
-        $operacion = $op->tipoOperacion == 1 ? "compra" :  "venta";
-        $moneda = $op->idMoneda == 2 ? "USD" : "EUR";
-        $monto = $op->monto;
-        $cot = $op->cotizacion;
-        $total = $op->cotizacion * $op->monto;
-        ImprimirTicket($fecha,$hora,$operacion,$moneda,$monto,$cot,$total);        
+    
     ////
     }
     return true;

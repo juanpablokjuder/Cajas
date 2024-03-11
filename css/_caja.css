@@ -189,10 +189,12 @@
     color: gray;
 }
 #recordatorio{
-    color: #fff;
+    color: #111;
     text-align: center;
     margin: 10px auto;
     display: block;
+    font-weight: 700;
+    font-size: 20px;
 }
 @media (max-width: 1000px) {
     .contCaja>div{

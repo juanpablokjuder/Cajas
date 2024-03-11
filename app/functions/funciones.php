@@ -261,26 +261,3 @@ function obtener_ip_local() {
     }
     return $ip;
 }
-function ImprimirTicket($fecha,$hora,$operacion,$moneda,$monto,$cot,$total){
-    $ip_local = obtener_ip_local();
-    if($ip_local == "::1"){$ip_local = "192.168.0.64/Cajas";}
-    $url = "192.168.0.64/Cajas/ticket.php?fecha=".$fecha."&hora=".$hora."&operacion=".$operacion."&moneda=".$moneda."&monto=".$monto."&cot=".$cot."&total=".$total;
-    ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-    function ImprimirTicket(url) {
-        $.ajax({
-            url: url,
-            success: function(response) {
-                console.log(response); // Esto es opcional, puedes quitarlo si no lo necesitas
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al imprimir el ticket:", status, error);
-            }
-        });
-    }
-    ImprimirTicket("<?php echo $url ?>")
-    
-    </script>
-    <?php
-}
