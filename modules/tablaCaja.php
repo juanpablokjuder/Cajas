@@ -130,7 +130,7 @@ $totalEuros = 0;
     </tr>
     <?php }?>
     
-    <tr>
+    <!-- <tr>
       <th>TOTAL</th>
       <th><?php echo 'U$D '.number_format($totalDolares, 2, ',', '.'); ?></th>
       <th><?php echo "€ ".number_format($totalEuros, 2, ',', '.'); ?></th>
@@ -141,7 +141,7 @@ $totalEuros = 0;
       <th></th>
 
       <th></th>
-    </tr>
+    </tr> -->
 
 
 </table>

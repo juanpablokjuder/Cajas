@@ -3,10 +3,10 @@
 require "./../app/app.php";
 
 $fecha = $_GET['fecha'];
-$sucursal = $_GET['sucursal'];
-$pag = $_GET['pag'];
+$user = $_GET['user'];
+$pag = 1;
 $operaciones = new Operaciones;
-$operaciones =$operaciones-> returnOperacionesSucursal($fecha,$sucursal,$pag);
+$operaciones =$operaciones-> returnOperacionesUsuario($user,$fecha);
 $totalPesos = 0;
 $totalDolares = 0;
 $totalEuros = 0;
@@ -20,16 +20,12 @@ $totalEuros = 0;
       <th>ARS <img src="img/arg.png" alt=""></th>
       <th>Fecha</th>
       <th>Hora</th>
-      <th>Usuario</th>
-      <th>ID</th>
+      <th>ID</th>    
       <th></th>
     </tr>
-    <?php foreach($operaciones as $op){
-      $user = new Usuarios;
-      $user = $user->returnUsuario($op->idUsuario);  
-
-    ?>
+    <?php foreach($operaciones as $op){?>
     <tr class="<?php if($op->estado == 0){echo "eliminado";} ?>">
+    
     <?php
         $pesos = 0;
         $dolares = 0;
@@ -110,10 +106,10 @@ $totalEuros = 0;
       <td class="<?php echo $cEuros ?>"><?php echo "€ ".number_format($euros, 2, ',', '.'); ?></td>
       <td><?php echo $op->cotizacion ?></td>
       <td class="<?php echo $cPesos ?>"><?php echo "$ ".number_format($pesos, 2, ',', '.'); ?></td>
-      <td><?php echo date('d/m/Y', strtotime($op->fecha))  ?></td>
+      <td><?php echo date('d/m/Y', strtotime($op->fecha)) ?></td>
       <td><?php echo $op->hora ?></td>
-      <td><?php echo $user->nombre ?></td>
       <td><?php echo $op->idOperacion ?></td>
+
 
 
 
@@ -143,26 +139,9 @@ $totalEuros = 0;
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
 
       <th></th>
     </tr> -->
 
 
 </table>
-<div class="botBotCaja">
-      <form action="">
-        <input type="hidden" name="fecha" value="<?php echo $fecha ?>">
-        <input type="hidden" name="sucursal" value="<?php echo $sucursal ?>">
-        <div class="contNumeroCaja">
-        <?php
-        $operaciones = new Operaciones;
-        $cant =$operaciones-> returnCantidadOperacionesSucursal($fecha,$sucursal);
-        $cantPags = ceil($cant/50);
-        for($i=1;$i<=$cantPags;$i++){ ?>
-          <input type="submit" value="<?php echo $i ?>" name="pag">
-        <?php } ?>
-        </div>
-      </form>
-    </div>
-

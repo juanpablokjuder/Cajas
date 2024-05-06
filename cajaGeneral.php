@@ -57,24 +57,26 @@
 <!-- FUNCIONES TIEMPO REAL -->
 <script type="text/javascript">
     function stock(){
+        //ACTUAL
         var stockPesos = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Actual&fecha='+$fecha,
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2&tipo=Actual&fecha='+$fecha,
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Actual&fecha='+$fecha,
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockEuros").innerHTML = stockEuros;
+
     }
     stock();
     setInterval(stock, 2000);

@@ -218,6 +218,9 @@
                     <td>
                         <button type="button" onclick="print()" class="inputCaja btn">Imprimir</button>
                     </td>
+                    <td>
+                        <button type="button" onclick="mostrar3()"  class="inputCaja btn">Simulador</button>
+                    </td>
 
                 </tr>
                 
@@ -485,7 +488,24 @@
         fondoVentana.style.display = "none"
     }
 </script>
+<!-- FUNCION DE simulador  -->
+<div class="fondoVentana" id="fondoVentana3" onClick="">
+    <div class="contVentana" >
+        <iframe src="modules/simulador.php?idUsuario=<?php echo $_SESSION['idUsuario'] ?>&fecha=<?php echo $fecha ?>" frameborder="0" class="iframeSimulador"></iframe>
+        <button type="button" class="btnCancelar" onClick="cerrar3()" style="margin:0;" >Cerrar</button>
+    </div>
+</div>
+<script>
+    const fondoVentana3 = document.getElementById("fondoVentana3");
 
+
+    function mostrar3(){
+        fondoVentana3.style.display = "flex"
+    }
+    function cerrar3(){
+        fondoVentana3.style.display = "none"
+    }
+</script>
 <!-- FUNCION DE ACTUALIZAR COT  -->
 <div class="fondoVentana" id="fondoVentana2" onClick="">
     <div class="contVentana" >
@@ -520,12 +540,19 @@
         const pass = document.getElementById('pass');
         const inputCotizacion = document.getElementById('inputCotizacion');
         if(codigo2.value == pass.value){
-            
+            cambiarToken()
             inputCotizacion.value = nuevaCot.value;
             cerrar2();
             
             recordatorioOp()
         }
+    }
+    function cambiarToken(){
+        var moneda= $.ajax ({
+            url: "<?php echo $GLOBALS['pathInicio'] ?>modules/nuevoToken.php",
+            dataType: 'text',
+            async: false,
+        }).responseText;
     }
     function mostrar2(){
         fondoVentana2.style.display = "flex"

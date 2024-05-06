@@ -1,0 +1,21 @@
+.iframeSimulador{
+  width: 100%;
+  min-width: 70vw;
+  min-height: 80vh;
+}
+.contSimulador{
+  width: 100vw;
+  height: 100vh;
+  background-color: #cfcfcf;
+}
+.topSimulador{
+width: 100vw;
+background-color: #111;
+padding: 20px 0px;
+color: #fff;
+}
+.tituloSimulador{
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+}

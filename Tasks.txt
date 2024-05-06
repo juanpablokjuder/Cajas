@@ -3,14 +3,6 @@ calcular ganancia diaria, mensual, anual.
 Generar nuevo token cuando se actualiza la cot
 actualizar cotizacion en caja personal cuando se cambia
 
-cambiar columnas
-
-imprimir tickets
-
-cambiar de lugar la previsualizacion de venta/compra con total
-
 simulador de compra y venta
 
-gerente qe pueda ver las cajas personales de otros usuarios
 
-estadisiticas de caja personal o por usuraio

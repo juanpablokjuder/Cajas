@@ -453,6 +453,64 @@ class Operaciones{
     
   }
 
+  // ESTADISTICAS POR USUARIO
+  public function compraDelDiaUsuario($idUsuario,$fecha,$moneda){
+    $comprado = 0;
+        $consulta = conectarDB("SELECT * FROM `operaciones` WHERE 
+        `tipoOperacion` = 1 AND
+        `idMoneda` = '$moneda' AND
+        `estado` = 1 AND
+        `idUsuario` = '$idUsuario' AND
+        `fecha` = '$fecha'");
+        foreach($consulta as $c){
+          $comprado += $c['monto'];
+        }
+        return $comprado;
+  }
+  public function ventaDelDiaUsuario($idUsuario,$fecha,$moneda){
+    $vendido = 0;
+        $consulta = conectarDB("SELECT * FROM `operaciones` WHERE 
+        `tipoOperacion` = 2 AND
+        `idMoneda` = '$moneda' AND
+        `estado` = 1 AND
+        `idUsuario` = '$idUsuario' AND
+        `fecha` = '$fecha'");
+        foreach($consulta as $c){
+          $vendido += $c['monto'];
+        }
+        return $vendido;
+  }
+  public function spreadDelDiaUsuario($idUsuario,$fecha,$moneda){
+      $spread = 0;
+      $totalCompra = 0;
+      $totalVenta = 0;
+      //total compra
+      $consulta = conectarDB("SELECT * FROM `operaciones` WHERE 
+      `tipoOperacion` = 1 AND
+      `idMoneda` = '$moneda' AND
+      `estado` = 1 AND
+      `idUsuario` = '$idUsuario' AND
+      `fecha` = '$fecha'");
+      foreach($consulta as $c){
+        $totalCompra += $c['monto'] * $c['cotizacion'];
+      }
+      //total venta
+      $consulta = conectarDB("SELECT * FROM `operaciones` WHERE 
+      `tipoOperacion` = 2 AND
+      `idMoneda` = '$moneda' AND
+      `estado` = 1 AND
+      `idUsuario` = '$idUsuario' AND
+      `fecha` = '$fecha'");
+      foreach($consulta as $c){
+        $totalVenta += $c['monto'] * $c['cotizacion'];
+      }
+    try {
+
+    $spread = ($totalVenta/$this->ventaDelDiaUsuario($idUsuario,$fecha,$moneda))-($totalCompra/$this->compraDelDiaUsuario($idUsuario,$fecha,$moneda));
+    } catch (\Throwable $th) {
+    }
+    return $spread;
+  }
   // DOLARES
 
   public function compraDelDia($sucursal=0, $fecha, $moneda){
