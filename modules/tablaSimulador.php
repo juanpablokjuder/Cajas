@@ -11,7 +11,7 @@ $totalPesos = 0;
 $totalDolares = 0;
 $totalEuros = 0;
 ?>
-<table class="tftable Caja" border="1px" style="overflow-x: hidden;">
+<table class="tftable Caja" border="1px" style="overflow-x: hidden;" id="tblSimulador">
     <tr class="titulo">
       <th>DETALLE</th>
       <th>USD <img src="img/usd.png" alt=""></th>
@@ -21,7 +21,21 @@ $totalEuros = 0;
       <th>Fecha</th>
       <th>Hora</th>
       <th>ID</th>    
-      <th></th>
+     
+    </tr>
+    <tr class="">
+      <td><select id="slcOperacion">
+        <option value="1">Compra</option>
+        <option value="2">Venta</option>
+      </select></td>
+      <td><input type="text" id="inUSD"></td>
+      <td><input type="text" id="inEUR"></td>
+      <td><input type="text" id="inCOT"></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>   <button onclick="GuardarOperacion()" class="btn" type="button">Guardar</button></td>    
+
     </tr>
     <?php foreach($operaciones as $op){?>
     <tr class="<?php if($op->estado == 0){echo "eliminado";} ?>">
@@ -113,20 +127,7 @@ $totalEuros = 0;
 
 
 
-      <td class="trash">
-        <?php if($op->estado == 1){ ?>
-        <button onClick="eliminar('<?php echo $op->idOperacion; ?>')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M4 7l16 0" />
-          <path d="M10 11l0 6" />
-          <path d="M14 11l0 6" />
-          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-        </svg>
-        </button>
-        <?php } ?>
-      </td>
+      
     </tr>
     <?php }?>
     
