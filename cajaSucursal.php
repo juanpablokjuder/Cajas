@@ -86,6 +86,12 @@
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
                 <?php }?>
             </table>
+            <table class="tftable" border="1px" style="max-width:max-content;">
+                <tr><th>Accion</th></tr>
+                <tr><td>
+                <button type="button" onclick="mostrar3()"  class="btn">Simulador</button>
+                </td></tr>
+            </table>
         </div>
     </div>
     <div class="midBotCaja">
@@ -93,7 +99,25 @@
     </div> 
 
 </section>
+<!-- FUNCION DE simulador  -->
+<div class="fondoVentana" id="fondoVentana3" onClick="">
+    <div class="contVentana" >
+  
+        <iframe src="modules/simuladorSucursal.php?idSucursal=<?php echo $sucursal?>&fecha=<?php echo $fecha ?>" frameborder="0" class="iframeSimulador"></iframe>
+        <button type="button" class="btnCancelar" onClick="cerrar3()" style="margin:0;" >Cerrar</button>
+    </div>
+</div>
+<script>
+    const fondoVentana3 = document.getElementById("fondoVentana3");
 
+
+    function mostrar3(){
+        fondoVentana3.style.display = "flex"
+    }
+    function cerrar3(){
+        fondoVentana3.style.display = "none"
+    }
+</script>
 
 
 <!-- FUNCIONES TIEMPO REAL -->

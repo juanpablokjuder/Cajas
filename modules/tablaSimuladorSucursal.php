@@ -3,10 +3,10 @@
 require "./../app/app.php";
 
 $fecha = $_GET['fecha'];
-$user = $_GET['user'];
+$idSucursal= $_GET['sucursal'];
 $pag = 1;
 $operaciones = new Operaciones;
-$operaciones =$operaciones-> returnOperacionesUsuario($user,$fecha);
+$operaciones =$operaciones-> returnOperacionesSucursal($fecha,$idSucursal,$pag);
 $totalPesos = 0;
 $totalDolares = 0;
 $totalEuros = 0;
@@ -18,6 +18,7 @@ $totalEuros = 0;
       <th>EUR <img src="img/eur.png" alt=""></th>
       <th>COT</th>
       <th>ARS <img src="img/arg.png" alt=""></th>
+      <th>Usuario</th>
       <th>Fecha</th>
       <th>Hora</th>
       <th>ID</th>    
@@ -34,10 +35,14 @@ $totalEuros = 0;
       <td>-</td>
       <td>-</td>
       <td>-</td>
+      <td>-</td>
       <td>   <button onclick="GuardarOperacion()" class="btn" type="button">Guardar</button></td>    
 
     </tr>
-    <?php foreach($operaciones as $op){?>
+    <?php foreach($operaciones as $op){
+        $user = new Usuarios;
+        $user = $user->returnUsuario($op->idUsuario);  
+      ?>
     <tr class="<?php if($op->estado == 0){echo "eliminado";} ?>">
     
     <?php
@@ -120,6 +125,7 @@ $totalEuros = 0;
       <td class="<?php echo $cEuros ?>"><?php echo "€ ".number_format($euros, 2, ',', '.'); ?></td>
       <td><?php echo $op->cotizacion ?></td>
       <td class="<?php echo $cPesos ?>"><?php echo "$ ".number_format($pesos, 2, ',', '.'); ?></td>
+      <td><?php echo $user->nombre ?></td>
       <td><?php echo date('d/m/Y', strtotime($op->fecha)) ?></td>
       <td><?php echo $op->hora ?></td>
       <td><?php echo $op->idOperacion ?></td>

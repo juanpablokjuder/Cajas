@@ -2,7 +2,7 @@
   require "../app/app.php";
 
   $fecha = $_GET['fecha'];
-  $idUsuario = $_GET['idUsuario'];
+  $idSucursal = $_GET['idSucursal'];
 
   html("simulador");
 ?>
@@ -90,6 +90,7 @@
     var celda6 = fila.insertCell(5);
     var celda7 = fila.insertCell(6);
     var celda8 = fila.insertCell(7);
+    var celda9 = fila.insertCell(8);
     // Agrega clases
     if (op == "Compra") {
         if (usd > 0) {
@@ -127,7 +128,8 @@
     celda5.innerHTML = "$ "+ ars.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
     celda6.innerHTML = "-";
     celda7.innerHTML = "-";
-    celda8.innerHTML = "SIMULACION";
+    celda8.innerHTML = "-";
+    celda9.innerHTML = "SIMULACION";
     UpdateStock(usd, eur, ars);
     document.getElementById("inUSD").value = ""
     document.getElementById("inEUR").value = ""
@@ -157,7 +159,7 @@
   }
   function tablaCaja2(){
       var tabla= $.ajax ({
-          url: '<?php echo $GLOBALS['pathInicio'] ?>modules/tablaSimulador.php?user=<?php echo $idUsuario ?>&fecha=<?php echo $fecha ?>',
+          url: '<?php echo $GLOBALS['pathInicio'] ?>modules/tablaSimuladorSucursal.php?sucursal=<?php echo $idSucursal ?>&fecha=<?php echo $fecha ?>',
           dataType: 'text',
           async: false,
       }).responseText;
@@ -168,21 +170,21 @@
       // STOCK ACTUAL
       
         var stockPesos = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=1&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=1&sucursal=<?php echo $idSucursal ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("spnInArg").innerHTML = stockPesos;
         document.getElementById("spnFinArg").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=2&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $idSucursal ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("spnInUsd").innerHTML = stockDolares;
         document.getElementById("spnFinUsd").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stock.php?moneda=3&user=<?php echo $_SESSION['idUsuario'] ?>&tipo=Actual&fecha=<?php echo $fecha?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=3&sucursal=<?php echo $idSucursal ?>&tipo=Actual&fecha=<?php echo $fecha?>',
             dataType: 'text',
             async: false,
         }).responseText;

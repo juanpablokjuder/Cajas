@@ -45,6 +45,12 @@
                 <tr><th>Saldos Actuales</th><td id="stockPesos"></td><td id="stockDolares"></td><td id="stockEuros"></td></tr>
                 <?php }?>
             </table>
+            <table class="tftable" border="1px" style="max-width:max-content;">
+                <tr><th>Accion</th></tr>
+                <tr><td>
+                <button type="button" onclick="mostrar3()"  class="btn">Simulador</button>
+                </td></tr>
+            </table>
         </div>
     </div>
     <div class="midBotCaja">
