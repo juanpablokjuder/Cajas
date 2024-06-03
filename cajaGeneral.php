@@ -184,7 +184,7 @@
 <div class="fondoVentana" id="fondoVentana3" onClick="">
     <div class="contVentana" >
   
-        <iframe src="modules/simuladorGeneral.php?fecha=<?php echo $fecha ?>" frameborder="0" class="iframeSimulador"></iframe>
+        <iframe id="ifrSimulador" src="modules/simuladorGeneral.php?fecha=<?php echo $fecha ?>" frameborder="0" class="iframeSimulador"></iframe>
         <button type="button" class="btnCancelar" onClick="cerrar3()" style="margin:0;" >Cerrar</button>
     </div>
 </div>
@@ -194,6 +194,8 @@
 
     function mostrar3(){
         fondoVentana3.style.display = "flex"
+        var iframe = document.getElementById('ifrSimulador');
+        iframe.src = iframe.src;
     }
     function cerrar3(){
         fondoVentana3.style.display = "none"

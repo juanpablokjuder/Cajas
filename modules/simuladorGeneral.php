@@ -186,7 +186,7 @@
         document.getElementById("spnInUsd").innerHTML = stockDolares;
         document.getElementById("spnFinUsd").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Actual&fecha=<?php echo $fecha ?>',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
