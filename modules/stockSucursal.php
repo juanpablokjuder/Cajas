@@ -155,7 +155,7 @@ if($tipo == "Inicial"){
     FROM `operaciones` O
     INNER JOIN `usuarios` U ON U.`idUsuario` = O.`idUsuario`
     INNER JOIN `sucursales` S ON U.`idSucursal` = S.`idSucursal` 
-    WHERE O.`tipoOperacion` = 1 AND O.`Estado` = 1 AND S.`idSucursal` = '$idSucursal' AND `fecha` < '$fecha'");
+    WHERE O.`tipoOperacion` = 1 AND O.`Estado` = 1 AND S.`idSucursal` = '$idSucursal'");
     $compra = mysqli_fetch_assoc($compras);
     $saldo -= $compra['saldo'];
     

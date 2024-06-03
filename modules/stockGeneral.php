@@ -90,23 +90,23 @@ if($tipo == "Final"){
   if($moneda == "1"){
     //pesos
     //todas las compras ventas ingresos egresos y personalizados
-    $compras = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 ");
+    $compras = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `fecha` <= '$fecha' ");
     $compra = mysqli_fetch_assoc($compras);
     $saldo -= $compra['saldo'];
     
-    $ventas = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 ");
+    $ventas = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `fecha` <= '$fecha' ");
     $venta = mysqli_fetch_assoc($ventas);
     $saldo += $venta['saldo'];
   
-    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 1");
+    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` <= '$fecha' ");
     $ingreso = mysqli_fetch_assoc($ingresos);
     $saldo += $ingreso['saldo'];
     
-    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 1");
+    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` <= '$fecha' ");
     $egreso = mysqli_fetch_assoc($egresos);
     $saldo += $egreso['saldo'];
   
-    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 1");
+    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` <= '$fecha' ");
     $personalizado = mysqli_fetch_assoc($personalizados);
     $saldo += $personalizado['saldo'];
   
@@ -116,23 +116,23 @@ if($tipo == "Final"){
   if($moneda == "2"){
     //dolares
       //todas las compras ventas ingresos egresos y personalizados
-      $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 2");
+      $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` <= '$fecha' ");
       $compra = mysqli_fetch_assoc($compras);
       $saldo += $compra['saldo'];
       
-      $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 2");
+      $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` <= '$fecha' ");
       $venta = mysqli_fetch_assoc($ventas);
       $saldo -= $venta['saldo'];
     
-      $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 2");
+      $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` <= '$fecha' ");
       $ingreso = mysqli_fetch_assoc($ingresos);
       $saldo += $ingreso['saldo'];
       
-      $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 2");
+      $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` <= '$fecha' ");
       $egreso = mysqli_fetch_assoc($egresos);
       $saldo += $egreso['saldo'];
     
-      $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 2");
+      $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` <= '$fecha' ");
       $personalizado = mysqli_fetch_assoc($personalizados);
       $saldo += $personalizado['saldo'];
     
@@ -142,23 +142,23 @@ if($tipo == "Final"){
   }
   if($moneda== "3"){
     //euros
-    $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 3");
+    $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` <= '$fecha' ");
     $compra = mysqli_fetch_assoc($compras);
     $saldo += $compra['saldo'];
     
-    $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 3");
+    $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` <= '$fecha' ");
     $venta = mysqli_fetch_assoc($ventas);
     $saldo -= $venta['saldo'];
   
-    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 3");
+    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` <= '$fecha' ");
     $ingreso = mysqli_fetch_assoc($ingresos);
     $saldo += $ingreso['saldo'];
     
-    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 3");
+    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` <= '$fecha' ");
     $egreso = mysqli_fetch_assoc($egresos);
     $saldo += $egreso['saldo'];
   
-    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 3");
+    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` <= '$fecha' ");
     $personalizado = mysqli_fetch_assoc($personalizados);
     $saldo += $personalizado['saldo'];
   
@@ -171,23 +171,23 @@ if($tipo == "Inicial"){
   if($moneda == "1"){
     //pesos
     //todas las compras ventas ingresos egresos y personalizados
-    $compras = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 ");
+    $compras = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `fecha` < '$fecha'");
     $compra = mysqli_fetch_assoc($compras);
     $saldo -= $compra['saldo'];
     
-    $ventas = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 ");
+    $ventas = conectarDB("SELECT SUM(`monto`*`cotizacion`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `fecha` < '$fecha'");
     $venta = mysqli_fetch_assoc($ventas);
     $saldo += $venta['saldo'];
   
-    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 1");
+    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` < '$fecha'");
     $ingreso = mysqli_fetch_assoc($ingresos);
     $saldo += $ingreso['saldo'];
     
-    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 1");
+    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` < '$fecha'");
     $egreso = mysqli_fetch_assoc($egresos);
     $saldo += $egreso['saldo'];
   
-    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 1");
+    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 1 AND `fecha` < '$fecha'");
     $personalizado = mysqli_fetch_assoc($personalizados);
     $saldo += $personalizado['saldo'];
   
@@ -197,23 +197,23 @@ if($tipo == "Inicial"){
   if($moneda == "2"){
     //dolares
       //todas las compras ventas ingresos egresos y personalizados
-      $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 2");
+      $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` < '$fecha'");
       $compra = mysqli_fetch_assoc($compras);
       $saldo += $compra['saldo'];
       
-      $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 2");
+      $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` < '$fecha'");
       $venta = mysqli_fetch_assoc($ventas);
       $saldo -= $venta['saldo'];
     
-      $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 2");
+      $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` < '$fecha'");
       $ingreso = mysqli_fetch_assoc($ingresos);
       $saldo += $ingreso['saldo'];
       
-      $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 2");
+      $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` < '$fecha'");
       $egreso = mysqli_fetch_assoc($egresos);
       $saldo += $egreso['saldo'];
     
-      $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 2");
+      $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 2 AND `fecha` < '$fecha'");
       $personalizado = mysqli_fetch_assoc($personalizados);
       $saldo += $personalizado['saldo'];
     
@@ -223,23 +223,23 @@ if($tipo == "Inicial"){
   }
   if($moneda== "3"){
     //euros
-    $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 3");
+    $compras = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 1 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` < '$fecha'");
     $compra = mysqli_fetch_assoc($compras);
     $saldo += $compra['saldo'];
     
-    $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 3");
+    $ventas = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 2 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` < '$fecha'");
     $venta = mysqli_fetch_assoc($ventas);
     $saldo -= $venta['saldo'];
   
-    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 3");
+    $ingresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 3 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` < '$fecha'");
     $ingreso = mysqli_fetch_assoc($ingresos);
     $saldo += $ingreso['saldo'];
     
-    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 3");
+    $egresos = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 4 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` < '$fecha'");
     $egreso = mysqli_fetch_assoc($egresos);
     $saldo += $egreso['saldo'];
   
-    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 3");
+    $personalizados = conectarDB("SELECT SUM(`monto`) as 'saldo' FROM `operaciones` WHERE `tipoOperacion` = 5 AND `Estado` = 1 AND `idMoneda` = 3 AND `fecha` < '$fecha'");
     $personalizado = mysqli_fetch_assoc($personalizados);
     $saldo += $personalizado['saldo'];
   

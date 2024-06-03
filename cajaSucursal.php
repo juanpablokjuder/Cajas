@@ -151,7 +151,7 @@
         }).responseText;
         document.getElementById("finStockPesos").innerHTML = finstockPesos;
         var finstockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>&tipo=Final&fecha=<?php echo $fecha ?>s',
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockSucursal.php?moneda=2&sucursal=<?php echo $sucursal ?>&tipo=Final&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;

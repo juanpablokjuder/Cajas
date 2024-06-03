@@ -24,7 +24,7 @@
      
 
     
-   
+   echo $fecha;
 ?>
         
 <section class="contCaja">
@@ -63,26 +63,70 @@
 <!-- FUNCIONES TIEMPO REAL -->
 <script type="text/javascript">
     function stock(){
-        //ACTUAL
+        // STOCK INICIAL
+        var instockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockPesos").innerHTML = instockPesos;
+        var instockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockDolares").innerHTML = instockDolares;
+        var instockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Inicial&fecha=<?php echo $fecha?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("inStockEuros").innerHTML = instockEuros;
+        // STOCK FINAL
+        if(document.querySelector('#finStockPesos') !== null){
+        var finstockPesos = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Final&fecha=<?php echo $fecha ?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockPesos").innerHTML = finstockPesos;
+        var finstockDolares = $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2&tipo=Final&fecha=<?php echo $fecha ?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        if(!!document.getElementById("finStockDolares")){
+            document.getElementById("finStockDolares").innerHTML = finstockDolares;
+
+        }
+        var finstockEuros= $.ajax ({
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Final&fecha=<?php echo $fecha ?>',
+            dataType: 'text',
+            async: false,
+        }).responseText;
+        document.getElementById("finStockEuros").innerHTML = finstockEuros;
+        }
+        // STOCK ACTUAL
+        if(document.querySelector('#stockPesos') !== null){   
         var stockPesos = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Actual&fecha='+$fecha,
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=1&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockPesos").innerHTML = stockPesos;
         var stockDolares = $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2&tipo=Actual&fecha='+$fecha,
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=2&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockDolares").innerHTML = stockDolares;
         var stockEuros= $.ajax ({
-            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Actual&fecha='+$fecha,
+            url: '<?php echo $GLOBALS['pathInicio'] ?>modules/stockGeneral.php?moneda=3&tipo=Actual&fecha=<?php echo $fecha ?>',
             dataType: 'text',
             async: false,
         }).responseText;
         document.getElementById("stockEuros").innerHTML = stockEuros;
-
+        }
     }
     stock();
     setInterval(stock, 2000);
@@ -134,6 +178,25 @@
     }
     function cerrar(){
         fondoVentana.style.display = "none"
+    }
+</script>
+<!-- FUNCION DE simulador  -->
+<div class="fondoVentana" id="fondoVentana3" onClick="">
+    <div class="contVentana" >
+  
+        <iframe src="modules/simuladorGeneral.php?fecha=<?php echo $fecha ?>" frameborder="0" class="iframeSimulador"></iframe>
+        <button type="button" class="btnCancelar" onClick="cerrar3()" style="margin:0;" >Cerrar</button>
+    </div>
+</div>
+<script>
+    const fondoVentana3 = document.getElementById("fondoVentana3");
+
+
+    function mostrar3(){
+        fondoVentana3.style.display = "flex"
+    }
+    function cerrar3(){
+        fondoVentana3.style.display = "none"
     }
 </script>
 
