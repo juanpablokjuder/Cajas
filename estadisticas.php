@@ -88,7 +88,7 @@ ganancia en el día,
     ORDER BY
     fecha");
     foreach($cons as $c){
-      ver($c);
+      //ver($c);
     }
     // ver(mysqli_fetch_assoc($cons));
 
